@@ -1,5 +1,5 @@
-name: todo_app
-description: A simple To-Do application built with Flutter.
+name: flutter_todo_app
+description: A simple Todo App using Flutter and shared_preferences for data storage.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -9,8 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  provider: ^6.1.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

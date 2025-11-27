@@ -1,65 +1,43 @@
-/// Represents a single to-do item with a title, description, and completion status.
+/// Represents a single Todo item.
 class Todo {
-  /// Unique identifier for the to-do item.
   final String id;
-
-  /// Title of the to-do item.
   final String title;
+  final bool isDone;
 
-  /// Optional description providing more details about the to-do.
-  final String description;
-
-  /// Whether the to-do item has been completed.
-  final bool isCompleted;
-
-  /// Timestamp when the to-do was created.
-  final DateTime createdAt;
-
-  /// Creates a new [Todo] instance.
-  const Todo({
+  Todo({
     required this.id,
     required this.title,
-    this.description = '',
-    this.isCompleted = false,
-    required this.createdAt,
+    this.isDone = false,
   });
 
-  /// Creates a copy of this [Todo] with the given fields replaced.
+  /// Creates a copy of this Todo with optionally modified fields.
   Todo copyWith({
     String? id,
     String? title,
-    String? description,
-    bool? isCompleted,
-    DateTime? createdAt,
+    bool? isDone,
   }) {
     return Todo(
       id: id ?? this.id,
       title: title ?? this.title,
-      description: description ?? this.description,
-      isCompleted: isCompleted ?? this.isCompleted,
-      createdAt: createdAt ?? this.createdAt,
+      isDone: isDone ?? this.isDone,
     );
   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is Todo &&
-        other.id == id &&
-        other.title == title &&
-        other.description == description &&
-        other.isCompleted == isCompleted &&
-        other.createdAt == createdAt;
+  /// Converts the Todo to a JSON map for storage.
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'isDone': isDone,
+    };
   }
 
-  @override
-  int get hashCode {
-    return Object.hash(id, title, description, isCompleted, createdAt);
-  }
-
-  @override
-  String toString() {
-    return 'Todo(id: $id, title: $title, description: $description, '
-        'isCompleted: $isCompleted, createdAt: $createdAt)';
+  /// Creates a Todo from a JSON map.
+  factory Todo.fromJson(Map<String, dynamic> json) {
+    return Todo(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      isDone: json['isDone'] as bool? ?? false,
+    );
   }
 }
