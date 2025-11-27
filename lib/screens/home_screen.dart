@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/todo.dart';
 import '../providers/todo_provider.dart';
 import '../widgets/todo_item.dart';
 import '../widgets/add_todo_dialog.dart';
@@ -165,7 +166,7 @@ class HomeScreen extends StatelessWidget {
   Future<void> _showEditDialog(
     BuildContext context,
     TodoProvider todoProvider,
-    todo,
+    Todo todo,
   ) async {
     final result = await showAddTodoDialog(
       context,
