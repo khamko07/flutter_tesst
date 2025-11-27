@@ -6,6 +6,7 @@ import '../models/todo.dart';
 /// Uses [ChangeNotifier] to notify listeners when the to-do list changes.
 class TodoProvider extends ChangeNotifier {
   final List<Todo> _todos = [];
+  int _idCounter = 0;
 
   /// Returns an unmodifiable list of all to-do items.
   List<Todo> get todos => List.unmodifiable(_todos);
@@ -16,10 +17,16 @@ class TodoProvider extends ChangeNotifier {
   /// Returns the count of pending (incomplete) to-do items.
   int get pendingCount => _todos.where((todo) => !todo.isCompleted).length;
 
+  /// Generates a unique ID combining timestamp and counter.
+  String _generateId() {
+    _idCounter++;
+    return '${DateTime.now().millisecondsSinceEpoch}_$_idCounter';
+  }
+
   /// Adds a new to-do item with the given [title] and optional [description].
   void addTodo(String title, {String description = ''}) {
     final todo = Todo(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: _generateId(),
       title: title,
       description: description,
       createdAt: DateTime.now(),
